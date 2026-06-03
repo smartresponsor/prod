@@ -1,0 +1,3 @@
+# Minimal production contour.
+# Cruding must not register ecosystem entity aliases in the host.
+cruding: {}
