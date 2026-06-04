@@ -32,4 +32,4 @@ services:
         tags: ['twig.extension']
 
 imports:
-    - { resource: '../../Accessing/config/services.yaml' }
+    - { resource: '../vendor/accessing/access/config/services.yaml' }

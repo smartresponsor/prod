@@ -17,18 +17,19 @@ app_route_audit:
 #     resource: '../../Administering/src/Controller/Admin/'
 #     type: attribute
 
-manage_easyadmin_routes:
-    resource: '../../Managing/config/routes/managing.yaml'
+# Managing is not required for this minimal production runtime host.
+# manage_easyadmin_routes:
+#     resource: '../../Managing/config/routes/managing.yaml'
 
 # Interfacing and Viewing are platform layers, not producer route owners.
 interfacing_routes:
     resource: '../vendor/interfacing/interface/config/routes/interfacing_attributes.yaml'
 
 viewing_routes:
-    resource: '../../Viewing/Resources/config/routes.php'
+    resource: '../vendor/viewing/view/Resources/config/routes.php'
 
 accessing_routes:
-    resource: '../../Accessing/config/component/routes.yaml'
+    resource: '../vendor/accessing/access/config/component/routes.yaml'
 
 notification_index:
     path: /notification/
@@ -39,5 +40,3 @@ notification_index:
 
 cruding:
     resource: '@CrudingBundle/config/routes.yaml'
-
-
