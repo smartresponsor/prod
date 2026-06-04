@@ -10,7 +10,7 @@ namespace App\Service\Dashboard;
 
 use App\Contract\Ui\AppDashboardSurfaceContract;
 use App\Dto\Dashboard\AppDashboardSurfacePayload;
-use App\Navigating\ServiceInterface\Navigation\NavigationSurfaceRendererInterface;
+use App\ServiceInterface\Navigation\NavigationSurfaceRendererInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 

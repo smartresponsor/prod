@@ -2,11 +2,16 @@ twig:
     file_name_pattern: '*.twig'
     paths:
         '%kernel.project_dir%/templates': ~
-        '%kernel.project_dir%/../Interfacing/templates': Interfacing
+        '%kernel.project_dir%/../Interfacing/template': Interfacing
         '%kernel.project_dir%/../Viewing/templates': Viewing
         '%kernel.project_dir%/../Accessing/templates': Accessing
-        '%kernel.project_dir%/../Cruding/templates': Cruding
+        '%kernel.project_dir%/../Cruding/template': Cruding
 
 when@test:
     twig:
         strict_variables: true
+
+
+
+
+

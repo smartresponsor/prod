@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Service\Interfacing\Shell;
 
 use App\Interfacing\Contract\ValueObject\ShellSlot;
-use App\Interfacing\ServiceInterface\Shell\ShellChromeProviderInterface;
+use App\Interfacing\ServiceInterface\Interfacing\Shell\ShellChromeProviderInterface;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Contracts\Cache\CacheInterface;

@@ -12,16 +12,17 @@ app_host_dashboard:
 app_route_audit:
     resource: routes/app_route_audit.yaml
 
-administering_admin_attribute:
-    resource: '../../Administering/src/Controller/Admin/'
-    type: attribute
+# Administering is not connected to AppProd yet.
+# administering_admin_attribute:
+#     resource: '../../Administering/src/Controller/Admin/'
+#     type: attribute
 
 manage_easyadmin_routes:
     resource: '../../Managing/config/routes/managing.yaml'
 
 # Interfacing and Viewing are platform layers, not producer route owners.
 interfacing_routes:
-    resource: '../../Interfacing/config/routes/interfacing_attributes.yaml'
+    resource: '../vendor/interfacing/interface/config/routes/interfacing_attributes.yaml'
 
 viewing_routes:
     resource: '../../Viewing/Resources/config/routes.php'
@@ -38,3 +39,5 @@ notification_index:
 
 cruding:
     resource: '@CrudingBundle/config/routes.yaml'
+
+

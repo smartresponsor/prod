@@ -1,95 +1,35 @@
-# This file is the entry point to configure your own services.
-# Files in the packages/ subdirectory configure your dependencies.
-# See also https://symfony.com/doc/current/service_container/import.html
-
-# Put parameters here that don't need to change on each machine where the app is deployed
-# https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
-parameters:
-    redis.dsn: 'redis://127.0.0.1:6379/0'
-
 services:
-    # default configuration for services in *this* file
     _defaults:
-        autowire: true      # Automatically injects dependencies in your services.
-        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+        autowire: true
+        autoconfigure: true
 
-    # makes classes in src/ available to be used as services
-    # this creates a service per class whose id is the fully-qualified class name
     App\:
         resource: '../src/'
         exclude:
-            - '../src/Presentation/Controller/Interfacing/'
-            - '../src/Contract/Ui/AdminBodyBridgeProviderSurfaceContract.php'
-            - '../src/Contract/Ui/AdminBodyConsumerProviderAdoptionContract.php'
-            - '../src/Contract/Ui/AdminBodyMountContract.php'
-            - '../../Complying/src/'
-            - '../../Complying/Command/'
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Fixture/'
+            - '../src/DataFixtures/'
+            - '../src/Kernel.php'
+            - '../src/Schedule.php'
+            - '../src/Service/Interfacing/Commerce/'
+            - '../src/Service/Interfacing/Ecommerce/'
+            - '../src/Service/Interfacing/Shell/ShellLayoutPreviewProviderService.php'
+            - '../src/Service/Interfacing/Shell/ShellScreenCatalogProviderService.php'
 
-    App\Fixture\GovernanceDemoSeeder: ~
-    App\Service\Demo\FacetingDemoDatasetService: ~
-    App\ServiceInterface\Demo\FacetingDemoDatasetServiceInterface: '@App\Service\Demo\FacetingDemoDatasetService'
-    App\Service\Demo\OrderDemoDataService: ~
+    App\Contract\Ui\AppDashboardSurfaceContract:
+        alias: App\Service\Dashboard\AppDashboardSurfaceBuilderService
 
-    App\ServiceInterface\VendorApiKeyServiceInterface: '@App\Service\VendorApiKeyService'
-# disabled for minimal-prod: # disabled for minimal-prod:     App\Navigating\ServiceInterface\Navigation\NavigationSurfaceRendererInterface: '@App\Service\Navigation\InterfacingNavigationSurfaceRendererService'
     App\Service\Dashboard\AppDashboardSurfaceBuilderService:
         public: true
-    App\Service\Diagnostics\AppRouteAuditService:
-        public: true
-        tags: ['controller.service_arguments']
-    doctrine.dbal.default_connection:
-        alias: doctrine.dbal.postgres_connection
+        tags:
+            - controller.service_arguments
 
-    App\Contract\Ui\AppDashboardSurfaceContract: '@App\Service\Dashboard\AppDashboardSurfaceBuilderService'
-    App\Interfacing\ServiceInterface\Shell\ShellChromeProviderInterface: '@App\Service\Interfacing\Shell\ShellChromeProviderService'
-    App\Interfacing\ServiceInterface\Commerce\ProjectShowcaseProviderInterface: '@App\Service\Interfacing\Commerce\DemoProjectShowcaseProviderService'
-    App\Interfacing\ServiceInterface\Ecommerce\EcommerceScreenCatalogProviderInterface: '@App\Service\Interfacing\Ecommerce\EcommerceScreenCatalogProviderService'
-    App\Interfacing\ServiceInterface\Shell\ShellLayoutPreviewProviderInterface: '@App\Service\Interfacing\Shell\ShellLayoutPreviewProviderService'
-    App\Interfacing\ServiceInterface\Shell\ShellScreenCatalogProviderInterface: '@App\Service\Interfacing\Shell\ShellScreenCatalogProviderService'
-
-    App\Repository\Order\OrderRepository:
-        tags: [ 'doctrine.repository_service' ]
+    App\Interfacing\ServiceInterface\Shell\ShellChromeProviderInterface:
+        alias: App\Service\Interfacing\Shell\ShellChromeProviderService
 
     App\Twig\LocaleSelectorTwigExtension:
         tags: ['twig.extension']
 
-    doctrine.orm.infrastructure_entity_manager:
-        alias: doctrine.orm.sqlite_entity_manager
-
-# disabled for minimal-prod: # disabled for minimal-prod:     App\Service\Navigation\InterfacingNavigationSurfaceRendererService:
-        arguments:
-            $interfacingRenderer: '@App\Interfacing\ServiceInterface\Presentation\InterfacingRendererInterface'
-
-    App\Routing\SiblingRoutesLoader:
-        arguments:
-            $projectDir: '%kernel.project_dir%'
-            $connectedComponents: '%app.connected_components%'
-        tags:
-            - { name: 'routing.loader', type: 'sibling_routes' }
-
-when@dev:
-    services:
-        Doctrine\Bundle\FixturesBundle\Loader\SymfonyFixturesLoader: '@doctrine.fixtures.loader'
-
 imports:
-# disabled for minimal-prod:     - { resource: '../../Administering/config/services.yaml' }
-    - { resource: '../vendor/cruding/crud/config/services.yaml' }
     - { resource: '../../Accessing/config/services.yaml' }
-# disabled for minimal-prod:     - { resource: '../../Shipping/config/component/services.yaml' }
-# disabled for minimal-prod:     - { resource: '../../Carting/config/services.yaml' }
-    - { resource: '../../Observabiliting/config/services.yaml' }
-    - { resource: '../../Vendoring/config/component/services.yaml' }
-# disabled for minimal-prod:     - { resource: '../../Searching/config/packages/searching.yaml' }
-# disabled for minimal-prod:     - { resource: '../../Navigating/config/services.yaml' }
-    - { resource: '../../Ordering/config/component/services.yaml' }
-    - { resource: '../../Ordering/config/packages/rate_limiter.php' }
-# disabled for minimal-prod:     - { resource: '../../Paying/config/services.yaml' }
-    - { resource: '../../Domaining/config/services.yaml' }
-# disabled for minimal-prod:     - { resource: '../../Billing/config/component/services.yaml' }
-    - { resource: '../../Localizing/config/services.yaml' }
-    - { resource: '../../Currencing/config/packages/currencing.yaml' }
-    - { resource: '../../Currencing/config/services/currencing.yaml' }
-    - { resource: '../../Discovering/config/services.yaml' }
-    - { resource: '../../Complying/config/services.yaml' }
-    - { resource: '../../Subscripting/config/packages/subscription_runtime_prep.yaml' }
-    - { resource: '../../Subscripting/config/services.yaml' }
